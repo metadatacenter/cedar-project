@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.metadatacenter</groupId>
+  <artifactId>cedar-project</artifactId>
+  <version>0.1.0</version>
+  <packaging>pom</packaging>
+
+  <name>CEDAR Project</name>
+  <description>Build the whole CEDAR project</description>
+
+  <modules>
+    <module>../cedar-auth</module>
+    <module>../cedar-server-utils</module>
+    <module>../cedar-template-server</module>
+    <module>../cedar-repo-server</module>
+    <module>../cedar-schema-server</module>
+    <module>../cedar-terminology-server</module>
+  </modules>
+
+</project>
