@@ -18,6 +18,7 @@
     <module>../cedar-repo-server</module>
     <module>../cedar-schema-server</module>
     <module>../cedar-terminology-server</module>
+    <module>../cedar-user-server</module>
   </modules>
 
 </project>
