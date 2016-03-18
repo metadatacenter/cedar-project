@@ -19,6 +19,8 @@
     <module>../cedar-schema-server</module>
     <module>../cedar-terminology-server</module>
     <module>../cedar-user-server</module>
+    <module>../cedar-resource-server</module>
+    <module>../cedar-valuerecommender-server</module>
   </modules>
 
 </project>
