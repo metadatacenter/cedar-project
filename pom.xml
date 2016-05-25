@@ -22,6 +22,8 @@
     <module>../cedar-resource-server</module>
     <module>../cedar-valuerecommender-server</module>
     <module>../cedar-folder-server</module>
+    <module>../cedar-admin-tools</module>
+    <module>../cedar-project-config</module>
   </modules>
 
 </project>
