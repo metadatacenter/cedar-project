@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.metadatacenter</groupId>
+  <artifactId>cedar-project</artifactId>
+  <version>0.5.5-SNAPSHOT</version>
+  <name>CEDAR Project</name>
+  <description>Build all CEDAR server components</description>
+  <packaging>pom</packaging>
+
+  <scm>
+    <connection>scm:git:git@github.com:metadatacenter/cedar-project.git</connection>
+    <developerConnection>scm:git:git@github.com:metadatacenter/cedar-project.git</developerConnection>
+    <url>https://github.com/metadatacenter/cedar-project</url>
+  </scm>
+
+  <modules>
+    <module>../cedar-server-utils</module>
+    <module>../cedar-auth</module>
+    <module>../cedar-admin-tools</module>
+    <module>../cedar-template-server</module>
+    <module>../cedar-repo-server</module>
+    <module>../cedar-schema-server</module>
+    <module>../cedar-terminology-server</module>
+    <module>../cedar-user-server</module>
+    <module>../cedar-resource-server</module>
+    <module>../cedar-valuerecommender-server</module>
+    <module>../cedar-folder-server</module>
+  </modules>
+
+</project>
