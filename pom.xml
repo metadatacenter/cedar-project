@@ -6,10 +6,15 @@
   <groupId>org.metadatacenter</groupId>
   <artifactId>cedar-project</artifactId>
   <version>0.5.5-SNAPSHOT</version>
-  <packaging>pom</packaging>
-
   <name>CEDAR Project</name>
   <description>Build all CEDAR server components</description>
+  <packaging>pom</packaging>
+
+ <scm>
+    <connection>scm:git:git@github.com:metadatacenter/cedar-project.git</connection>
+    <developerConnection>scm:git:git@github.com:metadatacenter/cedar-project.git</developerConnection>
+    <url>https://github.com/metadatacenter/cedar-project</url>
+  </scm>
 
   <modules>
     <module>../cedar-server-utils</module>
