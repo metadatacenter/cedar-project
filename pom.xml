@@ -18,7 +18,6 @@
 
   <modules>
     <module>../cedar-server-utils</module>
-    <module>../cedar-auth</module>
     <module>../cedar-admin-tools</module>
     <module>../cedar-template-server</module>
     <module>../cedar-repo-server</module>
