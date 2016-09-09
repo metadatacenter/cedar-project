@@ -5,7 +5,7 @@
 
   <groupId>org.metadatacenter</groupId>
   <artifactId>cedar-project</artifactId>
-  <version>0.5.6</version>
+  <version>0.6.1</version>
   <name>CEDAR Project</name>
   <description>Build all CEDAR server components</description>
   <packaging>pom</packaging>
@@ -18,7 +18,6 @@
 
   <modules>
     <module>../cedar-server-utils</module>
-    <module>../cedar-auth</module>
     <module>../cedar-admin-tools</module>
     <module>../cedar-template-server</module>
     <module>../cedar-repo-server</module>
