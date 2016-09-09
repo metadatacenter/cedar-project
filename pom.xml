@@ -5,7 +5,7 @@
 
   <groupId>org.metadatacenter</groupId>
   <artifactId>cedar-project</artifactId>
-  <version>0.7.0</version>
+  <version>0.7.1-SNAPSHOT</version>
   <name>CEDAR Project</name>
   <description>Build all CEDAR server components</description>
   <packaging>pom</packaging>
