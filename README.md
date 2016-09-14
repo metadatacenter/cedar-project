@@ -1,6 +1,11 @@
 # CEDAR Build Project
 Build project for all CEDAR Java repositories
 
-[![Items in Ready](https://badge.waffle.io/metadatacenter/cedar-project.svg?label=ready&title=Ready)](http://waffle.io/metadatacenter/cedar-project)
-[![Items in Review](https://badge.waffle.io/metadatacenter/cedar-project.svg?label=review&title=Review)](http://waffle.io/metadatacenter/cedar-project)
+
+#### Questions
+
+If you have questions about this repository, please subscribe to the [CEDAR Developer Support
+mailing list](https://mailman.stanford.edu/mailman/listinfo/cedar-developers).
+After subscribing, send messages to cedar-developers at lists.stanford.edu.
+
 
