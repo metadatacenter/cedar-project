@@ -17,7 +17,7 @@
   </scm>
 
   <modules>
-    <module>../cedar-server-utils</module>
+    <module>../cedar-server-core-library</module>
     <module>../cedar-admin-tools</module>
     <module>../cedar-template-server</module>
     <module>../cedar-repo-server</module>
