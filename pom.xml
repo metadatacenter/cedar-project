@@ -5,7 +5,7 @@
 
   <groupId>org.metadatacenter</groupId>
   <artifactId>cedar-project</artifactId>
-  <version>0.8.2</version>
+  <version>0.8.5</version>
   <name>CEDAR Project</name>
   <description>Build all CEDAR server components</description>
   <packaging>pom</packaging>
@@ -17,7 +17,7 @@
   </scm>
 
   <modules>
-    <module>../cedar-server-utils</module>
+    <module>../cedar-server-core-library</module>
     <module>../cedar-admin-tools</module>
     <module>../cedar-template-server</module>
     <module>../cedar-repo-server</module>
@@ -27,6 +27,8 @@
     <module>../cedar-resource-server</module>
     <module>../cedar-valuerecommender-server</module>
     <module>../cedar-folder-server</module>
+    <module>../cedar-group-server</module>
+    <module>../cedar-keycloak-event-listener</module>
   </modules>
 
 </project>
