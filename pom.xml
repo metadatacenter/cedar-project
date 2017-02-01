@@ -29,6 +29,7 @@
     <module>../cedar-folder-server</module>
     <module>../cedar-group-server</module>
     <module>../cedar-keycloak-event-listener</module>
+    <module>../cedar-worker-server</module>
   </modules>
 
 </project>
