@@ -31,6 +31,7 @@
     <module>../cedar-keycloak-event-listener</module>
     <module>../cedar-submission-server</module>
     <module>../cedar-worker-server</module>
+    <module>../cedar-model-validation-library</module>
   </modules>
 
 </project>
