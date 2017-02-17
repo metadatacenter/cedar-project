@@ -5,7 +5,7 @@
 
   <groupId>org.metadatacenter</groupId>
   <artifactId>cedar-project</artifactId>
-  <version>0.9.2</version>
+  <version>0.9.3</version>
   <name>CEDAR Project</name>
   <description>Build all CEDAR server components</description>
   <packaging>pom</packaging>
@@ -29,6 +29,9 @@
     <module>../cedar-folder-server</module>
     <module>../cedar-group-server</module>
     <module>../cedar-keycloak-event-listener</module>
+    <module>../cedar-submission-server</module>
+    <module>../cedar-worker-server</module>
+    <module>../cedar-model-validation-library</module>
   </modules>
 
 </project>
