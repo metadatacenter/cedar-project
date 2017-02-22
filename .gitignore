@@ -2,6 +2,9 @@
 *.iml
 .DS_Store
 target
+.project
+.classpath
+.settings
 
 pom.xml.releaseBackup
 release.properties
