@@ -26,8 +26,9 @@
     <module>../cedar-user-server</module>
     <module>../cedar-resource-server</module>
     <module>../cedar-valuerecommender-server</module>
-    <module>../cedar-folder-server</module>
+    <module>../cedar-workspace-server</module>
     <module>../cedar-group-server</module>
+    <module>../cedar-messaging-server</module>
     <module>../cedar-keycloak-event-listener</module>
     <module>../cedar-submission-server</module>
     <module>../cedar-worker-server</module>
