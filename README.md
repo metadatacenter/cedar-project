@@ -6,7 +6,7 @@ For general documentation about CEDAR see [our project web site](https://metadat
 
 Developer-centric documentation can be found on the [https://github.com/metadatacenter/cedar-docs/wiki/CEDAR-technical-documentation](CEDAR technical wiki).
 
-The production web site is [https://cedar.metadatacenter.net](here).
+The production web site is [https://cedar.metadatacenter.org](here).
 
 #### Questions
 
