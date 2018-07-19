@@ -6,7 +6,7 @@ appropriate version dependencies for the build.
 
 For general documentation about CEDAR see [our project web site](https://metadatacenter.org/).
 
-Developer-centric documentation can be found on the [https://github.com/metadatacenter/cedar-docs/wiki/CEDAR-technical-documentation](CEDAR technical wiki).
+Developer-centric documentation can be found on the [CEDAR technical wiki](https://github.com/metadatacenter/cedar-docs/wiki/CEDAR-technical-documentation).
 
 Release notes can be found in the Release section of this repo.
 
