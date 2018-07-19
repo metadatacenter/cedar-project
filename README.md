@@ -1,8 +1,8 @@
 # CEDAR Build Project
 
-This repo contains a Maven POM for building all CEDAR Java-based repositories.
-Note that Maven must first be executed on the  POM in the [parent repository](https://github.com/metadatacenter/cedar-parent) to generate
-appropriate version dependencies for the build.
+This repository contains a Maven POM for building all CEDAR Java-based components.
+Note that Maven must first be executed on the  POM in the [CEDAR parent repository](https://github.com/metadatacenter/cedar-parent) to generate
+appropriate configuration information and version dependencies for the build.
 
 For general documentation about CEDAR see [our project web site](https://metadatacenter.org/).
 
