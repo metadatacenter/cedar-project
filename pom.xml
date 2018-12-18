@@ -33,7 +33,7 @@
     <module>../cedar-submission-server</module>
     <module>../cedar-worker-server</module>
     <module>../cedar-model-validation-library</module>
-    <module>../cedar-fairdata-server</module>
+    <module>../cedar-open-server</module>
   </modules>
 
 </project>
