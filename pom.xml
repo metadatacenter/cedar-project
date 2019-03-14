@@ -19,7 +19,7 @@
   <modules>
     <module>../cedar-server-core-library</module>
     <module>../cedar-admin-tool</module>
-    <module>../cedar-template-server</module>
+    <module>../cedar-artifact-server</module>
     <module>../cedar-repo-server</module>
     <module>../cedar-schema-server</module>
     <module>../cedar-terminology-server</module>
