@@ -5,7 +5,7 @@
 
   <groupId>org.metadatacenter</groupId>
   <artifactId>cedar-project</artifactId>
-  <version>2.4.11</version>
+  <version>2.5.0</version>
   <name>CEDAR Project</name>
   <description>Build all CEDAR server components</description>
   <packaging>pom</packaging>
@@ -32,7 +32,7 @@
     <module>../cedar-submission-server</module>
     <module>../cedar-worker-server</module>
     <module>../cedar-model-validation-library</module>
-    <module>../cedar-open-server</module>
+    <module>../cedar-openview-server</module>
     <module>../cedar-internals-server</module>
   </modules>
 
