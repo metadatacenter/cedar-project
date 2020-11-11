@@ -34,6 +34,7 @@
     <module>../cedar-model-validation-library</module>
     <module>../cedar-openview-server</module>
     <module>../cedar-internals-server</module>
+    <module>../cedar-impex-server</module>
   </modules>
 
 </project>
