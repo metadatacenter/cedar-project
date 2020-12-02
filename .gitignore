@@ -8,6 +8,8 @@ target
 .classpath
 .settings
 
+Users
+
 pom.xml.releaseBackup
 release.properties
 pom.xml.versionsBackup
