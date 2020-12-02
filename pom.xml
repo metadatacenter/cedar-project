@@ -35,6 +35,7 @@
     <module>../cedar-openview-server</module>
     <module>../cedar-internals-server</module>
     <module>../cedar-impex-server</module>
+    <module>../cedar-cadsr-tools</module>
   </modules>
 
 </project>
