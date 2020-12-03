@@ -5,10 +5,11 @@
 
   <groupId>org.metadatacenter</groupId>
   <artifactId>cedar-project</artifactId>
-  <version>2.5.36-SNAPSHOT</version>
+  <version>2.5.37</version>
+  <packaging>pom</packaging>
+
   <name>CEDAR Project</name>
   <description>Build all CEDAR server components</description>
-  <packaging>pom</packaging>
 
   <scm>
     <connection>scm:git:https://github.com/metadatacenter/cedar-project.git</connection>
