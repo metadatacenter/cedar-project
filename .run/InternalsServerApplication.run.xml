@@ -8,6 +8,8 @@
     </method>
   </configuration>
   <configuration default="false" name="InternalsServerApplication" type="Application" factoryName="Application">
+    <option name="ALTERNATIVE_JRE_PATH" value="corretto-17" />
+    <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
     <option name="MAIN_CLASS_NAME" value="org.metadatacenter.cedar.internals.InternalsServerApplication" />
     <module name="cedar-internals-server-application" />
     <option name="PROGRAM_PARAMETERS" value="server $PROJECT_DIR$/../cedar-internals-server/cedar-internals-server-application/src/main/resources/config.yml" />
