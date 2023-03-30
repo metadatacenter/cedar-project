@@ -1,0 +1,32 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="ResourceServerApplication" type="Application" factoryName="Application" nameIsGenerated="true">
+    <option name="MAIN_CLASS_NAME" value="org.metadatacenter.cedar.resource.ResourceServerApplication" />
+    <module name="cedar-resource-server-application" />
+    <option name="PROGRAM_PARAMETERS" value="server $PROJECT_DIR$/../cedar-resource-server/cedar-resource-server-application/src/main/resources/config.yml" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="org.metadatacenter.cedar.resource.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+  <configuration default="false" name="ResourceServerApplication" type="Application" factoryName="Application" nameIsGenerated="true">
+    <option name="ALTERNATIVE_JRE_PATH" value="corretto-17" />
+    <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+    <option name="MAIN_CLASS_NAME" value="org.metadatacenter.cedar.resource.ResourceServerApplication" />
+    <module name="cedar-resource-server-application" />
+    <option name="PROGRAM_PARAMETERS" value="server $PROJECT_DIR$/../cedar-resource-server/cedar-resource-server-application/src/main/resources/config.yml" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="org.metadatacenter.cedar.resource.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

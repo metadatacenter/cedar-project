@@ -1,0 +1,12 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="WorkerServerApplication" type="Application" factoryName="Application">
+    <option name="ALTERNATIVE_JRE_PATH" value="corretto-17" />
+    <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+    <option name="MAIN_CLASS_NAME" value="org.metadatacenter.cedar.worker.WorkerServerApplication" />
+    <module name="cedar-worker-server-application" />
+    <option name="PROGRAM_PARAMETERS" value="server $PROJECT_DIR$/../cedar-worker-server/cedar-worker-server-application/src/main/resources/config.yml" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
