@@ -1,0 +1,20 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="MonitorServerApplication" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="org.metadatacenter.cedar.monitor.MonitorServerApplication" />
+    <module name="cedar-monitor-server-application" />
+    <option name="PROGRAM_PARAMETERS" value="server $PROJECT_DIR$/../cedar-monitor-server/cedar-monitor-server-application/src/main/resources/config.yml" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+  <configuration default="false" name="MonitorServerApplication" type="Application" factoryName="Application">
+    <option name="ALTERNATIVE_JRE_PATH" value="corretto-17" />
+    <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+    <option name="MAIN_CLASS_NAME" value="org.metadatacenter.cedar.monitor.MonitorServerApplication" />
+    <module name="cedar-monitor-server-application" />
+    <option name="PROGRAM_PARAMETERS" value="server $PROJECT_DIR$/../cedar-monitor-server/cedar-monitor-server-application/src/main/resources/config.yml" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
