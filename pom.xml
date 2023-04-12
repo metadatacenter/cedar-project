@@ -17,7 +17,7 @@
   </scm>
 
   <modules>
-    <module>../cedar-server-core-library</module>
+    <module>../cedar-microservice-libraries</module>
     <module>../cedar-admin-tool</module>
     <module>../cedar-artifact-server</module>
     <module>../cedar-repo-server</module>
