@@ -4,7 +4,7 @@
 
   <groupId>org.metadatacenter</groupId>
   <artifactId>cedar-project</artifactId>
-  <version>2.6.23</version>
+  <version>2.6.24</version>
   <packaging>pom</packaging>
 
   <name>CEDAR Project</name>
@@ -17,7 +17,7 @@
   </scm>
 
   <modules>
-    <module>../cedar-server-core-library</module>
+    <module>../cedar-microservice-libraries</module>
     <module>../cedar-admin-tool</module>
     <module>../cedar-artifact-server</module>
     <module>../cedar-repo-server</module>
@@ -31,9 +31,8 @@
     <module>../cedar-keycloak-event-listener</module>
     <module>../cedar-submission-server</module>
     <module>../cedar-worker-server</module>
-    <module>../cedar-model-validation-library</module>
     <module>../cedar-openview-server</module>
-    <module>../cedar-internals-server</module>
+    <module>../cedar-monitor-server</module>
     <module>../cedar-impex-server</module>
     <module>../cedar-cadsr-tools</module>
   </modules>
