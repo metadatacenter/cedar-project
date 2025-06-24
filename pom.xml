@@ -5,12 +5,12 @@
   <parent>
     <groupId>org.metadatacenter</groupId>
     <artifactId>cedar-parent</artifactId>
-    <version>2.7.10-SNAPSHOT</version>
+    <version>2.7.10</version>
   </parent>
 
   <groupId>org.metadatacenter</groupId>
   <artifactId>cedar-project</artifactId>
-  <version>2.7.10-SNAPSHOT</version>
+  <version>2.7.10</version>
   <packaging>pom</packaging>
 
   <name>CEDAR Project</name>
