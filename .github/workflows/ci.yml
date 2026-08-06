@@ -1,0 +1,349 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - develop
+  pull_request:
+    branches:
+      - develop
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Maven tests (Java 17)
+    runs-on: ubuntu-latest
+    # The full backend builds nineteen component repositories in one reactor, so
+    # the ceiling is well above the twenty minutes a single component needs.
+    timeout-minutes: 45
+    services:
+      # cedar-monitor-server's tests are the only ones that need a live MySQL;
+      # every other suite runs on the embedded stores.
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_DATABASE: cedar_log
+          MYSQL_USER: cedar_log_user
+          MYSQL_PASSWORD: cedar_log_password
+          MYSQL_ROOT_PASSWORD: root_password
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h localhost -uroot -proot_password"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
+    env:
+      BMIR_NEXUS_USERNAME: ${{ secrets.BMIR_NEXUS_USERNAME }}
+      BMIR_NEXUS_PASSWORD: ${{ secrets.BMIR_NEXUS_PASSWORD }}
+      CEDAR_HOST: metadatacenter.orgx
+      CEDAR_NET_GATEWAY: 127.0.0.1
+      CEDAR_ADMIN_USER_API_KEY: "1234"
+      CEDAR_ADMIN_USER_PASSWORD: adminPassword
+      CEDAR_CADSR_ADMIN_USER_API_KEY: "5678"
+      CEDAR_SALT_API_KEY: saltme
+      CEDAR_VALIDATION_ENABLED: "true"
+      CEDAR_CADSR_ONTOLOGIES_FOLDER: /tmp/cadsr-ontologies
+      CEDAR_TRUSTED_FOLDERS: '{\"caDSR\":[\"https://repo.metadatacenter.orgx/folders/00000000-1111-2222-3333-444444444444\"]}'
+      CEDAR_SUBMISSION_TEMPLATE_ID_1: http://template-id-1
+      CEDAR_SUBMISSION_TEMPLATE_ID_2: http://template-id-2
+      # These must sit under linkedData.usersBase from cedar-main.yml
+      # (https://metadatacenter.org/users/), or the profile-ownership check
+      # rejects the test user's own profile with a 403.
+      CEDAR_TEST_USER1_ID: https://metadatacenter.org/users/11111111-2222-3333-4444-555555555555
+      CEDAR_TEST_USER2_ID: https://metadatacenter.org/users/66666666-7777-8888-9999-000000000000
+      CEDAR_NEO4J_HOST: 127.0.0.1
+      CEDAR_NEO4J_USER_NAME: neo4j
+      CEDAR_NEO4J_USER_PASSWORD: password
+      CEDAR_NEO4J_BOLT_PORT: "7687"
+      CEDAR_MONGO_HOST: 127.0.0.1
+      CEDAR_MONGO_PORT: "27017"
+      CEDAR_MONGO_APP_USER_NAME: cedarUser
+      CEDAR_MONGO_APP_USER_PASSWORD: password
+      CEDAR_OPENSEARCH_HOST: 127.0.0.1
+      CEDAR_OPENSEARCH_REST_PORT: "9200"
+      CEDAR_OPENSEARCH_TRANSPORT_PORT: "9300"
+      CEDAR_REDIS_PERSISTENT_HOST: 127.0.0.1
+      CEDAR_REDIS_PERSISTENT_PORT: "6379"
+      CEDAR_LOG_MYSQL_HOST: 127.0.0.1
+      CEDAR_LOG_MYSQL_PORT: "3306"
+      CEDAR_LOG_MYSQL_DB: cedar_log
+      CEDAR_LOG_MYSQL_USER: cedar_log_user
+      CEDAR_LOG_MYSQL_PASSWORD: cedar_log_password
+      CEDAR_MESSAGING_MYSQL_HOST: 127.0.0.1
+      CEDAR_MESSAGING_MYSQL_PORT: "3306"
+      CEDAR_MESSAGING_MYSQL_DB: cedar_messaging
+      CEDAR_MESSAGING_MYSQL_USER: cedarMySQLMessagingUser
+      CEDAR_MESSAGING_MYSQL_PASSWORD: password
+      CEDAR_NCBI_SRA_FTP_HOST: ftpHost
+      CEDAR_NCBI_SRA_FTP_USER: ftpUser
+      CEDAR_NCBI_SRA_FTP_PASSWORD: ftpPassword
+      CEDAR_NCBI_SRA_FTP_DIRECTORY: ftpDirectory
+      CEDAR_IMMPORT_SUBMISSION_USER: submissionUser
+      CEDAR_IMMPORT_SUBMISSION_PASSWORD: submissionPassword
+      CEDAR_DATACITE_ENABLED: "false"
+      CEDAR_DATACITE_REPOSITORY_ID: dataCiteRepositoryId
+      CEDAR_DATACITE_REPOSITORY_PASSWORD: dataCiteRepositoryPassword
+      CEDAR_DATACITE_REPOSITORY_PREFIX: "10.5072"
+      CEDAR_DATACITE_API_ENDPOINT_URL: https://api.test.datacite.org/dois
+      CEDAR_DATACITE_TEMPLATE_ID: http://datacite-template-id
+      # The tests that call BioPortal live are @Tag("bioportal") and excluded by the
+      # application POM; these only satisfy configuration substitution.
+      CEDAR_BIOPORTAL_REST_BASE: https://data.bioontology.org/
+      CEDAR_BIOPORTAL_API_KEY: bioportalApiKey
+      CEDAR_ROR_API_PREFIX: https://api.ror.org/v2/
+      CEDAR_ORCID_TOKEN_PREFIX: https://orcid.org/
+      CEDAR_ORCID_API_PREFIX: https://pub.orcid.org/
+      CEDAR_ORCID_API_CLIENT_ID: orcidClientId
+      CEDAR_ORCID_API_CLIENT_SECRET: orcidClientSecret
+      CEDAR_COMP_TOX_API_PREFIX: https://api-ccte.epa.gov/
+      CEDAR_COMP_TOX_API_KEY: compToxApiKey
+      CEDAR_RRID_API_KEY: rridApiKey
+      CEDAR_PUBMED_API_KEY: pubmedApiKey
+      CEDAR_ARTIFACT_SERVER_HOST: 127.0.0.1
+      CEDAR_ARTIFACT_HTTP_PORT: "9001"
+      CEDAR_ARTIFACT_ADMIN_PORT: "9101"
+      CEDAR_ARTIFACT_STOP_PORT: "9201"
+      CEDAR_REPO_SERVER_HOST: 127.0.0.1
+      CEDAR_REPO_HTTP_PORT: "9002"
+      CEDAR_REPO_ADMIN_PORT: "9102"
+      CEDAR_REPO_STOP_PORT: "9202"
+      CEDAR_SCHEMA_SERVER_HOST: 127.0.0.1
+      CEDAR_SCHEMA_HTTP_PORT: "9003"
+      CEDAR_SCHEMA_ADMIN_PORT: "9103"
+      CEDAR_SCHEMA_STOP_PORT: "9203"
+      CEDAR_TERMINOLOGY_SERVER_HOST: 127.0.0.1
+      CEDAR_TERMINOLOGY_HTTP_PORT: "9004"
+      CEDAR_TERMINOLOGY_ADMIN_PORT: "9104"
+      CEDAR_TERMINOLOGY_STOP_PORT: "9204"
+      CEDAR_USER_SERVER_HOST: 127.0.0.1
+      CEDAR_USER_HTTP_PORT: "9005"
+      CEDAR_USER_ADMIN_PORT: "9105"
+      CEDAR_USER_STOP_PORT: "9205"
+      CEDAR_VALUERECOMMENDER_SERVER_HOST: 127.0.0.1
+      CEDAR_VALUERECOMMENDER_HTTP_PORT: "9006"
+      CEDAR_VALUERECOMMENDER_ADMIN_PORT: "9106"
+      CEDAR_VALUERECOMMENDER_STOP_PORT: "9206"
+      CEDAR_RESOURCE_SERVER_HOST: 127.0.0.1
+      CEDAR_RESOURCE_HTTP_PORT: "9007"
+      CEDAR_RESOURCE_ADMIN_PORT: "9107"
+      CEDAR_RESOURCE_STOP_PORT: "9207"
+      CEDAR_IMPEX_SERVER_HOST: 127.0.0.1
+      CEDAR_IMPEX_HTTP_PORT: "9008"
+      CEDAR_IMPEX_ADMIN_PORT: "9108"
+      CEDAR_IMPEX_STOP_PORT: "9208"
+      CEDAR_GROUP_SERVER_HOST: 127.0.0.1
+      CEDAR_GROUP_HTTP_PORT: "9009"
+      CEDAR_GROUP_ADMIN_PORT: "9109"
+      CEDAR_GROUP_STOP_PORT: "9209"
+      CEDAR_SUBMISSION_SERVER_HOST: 127.0.0.1
+      CEDAR_SUBMISSION_HTTP_PORT: "9010"
+      CEDAR_SUBMISSION_ADMIN_PORT: "9110"
+      CEDAR_SUBMISSION_STOP_PORT: "9210"
+      CEDAR_WORKER_SERVER_HOST: 127.0.0.1
+      CEDAR_WORKER_HTTP_PORT: "9011"
+      CEDAR_WORKER_ADMIN_PORT: "9111"
+      CEDAR_WORKER_STOP_PORT: "9211"
+      CEDAR_MESSAGING_SERVER_HOST: 127.0.0.1
+      CEDAR_MESSAGING_HTTP_PORT: "9012"
+      CEDAR_MESSAGING_ADMIN_PORT: "9112"
+      CEDAR_MESSAGING_STOP_PORT: "9212"
+      CEDAR_OPENVIEW_SERVER_HOST: 127.0.0.1
+      CEDAR_OPENVIEW_HTTP_PORT: "9013"
+      CEDAR_OPENVIEW_ADMIN_PORT: "9113"
+      CEDAR_OPENVIEW_STOP_PORT: "9213"
+      CEDAR_MONITOR_SERVER_HOST: 127.0.0.1
+      CEDAR_MONITOR_HTTP_PORT: "9014"
+      CEDAR_MONITOR_ADMIN_PORT: "9114"
+      CEDAR_MONITOR_STOP_PORT: "9214"
+      CEDAR_BRIDGE_SERVER_HOST: 127.0.0.1
+      CEDAR_BRIDGE_HTTP_PORT: "9015"
+      CEDAR_BRIDGE_ADMIN_PORT: "9115"
+      CEDAR_BRIDGE_STOP_PORT: "9215"
+
+    steps:
+      # The aggregator reaches its modules through ../ sibling paths, so every
+      # component repository is checked out next to it in the workspace.
+      - name: Check out repository
+        uses: actions/checkout@v7
+        with:
+          path: cedar-project
+
+      - name: Check out cedar-microservice-libraries
+        uses: actions/checkout@v7
+        with:
+          repository: metadatacenter/cedar-microservice-libraries
+          ref: develop
+          path: cedar-microservice-libraries
+
+      - name: Check out cedar-admin-tool
+        uses: actions/checkout@v7
+        with:
+          repository: metadatacenter/cedar-admin-tool
+          ref: develop
+          path: cedar-admin-tool
+
+      - name: Check out cedar-artifact-server
+        uses: actions/checkout@v7
+        with:
+          repository: metadatacenter/cedar-artifact-server
+          ref: develop
+          path: cedar-artifact-server
+
+      - name: Check out cedar-repo-server
+        uses: actions/checkout@v7
+        with:
+          repository: metadatacenter/cedar-repo-server
+          ref: develop
+          path: cedar-repo-server
+
+      - name: Check out cedar-schema-server
+        uses: actions/checkout@v7
+        with:
+          repository: metadatacenter/cedar-schema-server
+          ref: develop
+          path: cedar-schema-server
+
+      - name: Check out cedar-terminology-server
+        uses: actions/checkout@v7
+        with:
+          repository: metadatacenter/cedar-terminology-server
+          ref: develop
+          path: cedar-terminology-server
+
+      - name: Check out cedar-user-server
+        uses: actions/checkout@v7
+        with:
+          repository: metadatacenter/cedar-user-server
+          ref: develop
+          path: cedar-user-server
+
+      - name: Check out cedar-resource-server
+        uses: actions/checkout@v7
+        with:
+          repository: metadatacenter/cedar-resource-server
+          ref: develop
+          path: cedar-resource-server
+
+      - name: Check out cedar-valuerecommender-server
+        uses: actions/checkout@v7
+        with:
+          repository: metadatacenter/cedar-valuerecommender-server
+          ref: develop
+          path: cedar-valuerecommender-server
+
+      - name: Check out cedar-group-server
+        uses: actions/checkout@v7
+        with:
+          repository: metadatacenter/cedar-group-server
+          ref: develop
+          path: cedar-group-server
+
+      - name: Check out cedar-messaging-server
+        uses: actions/checkout@v7
+        with:
+          repository: metadatacenter/cedar-messaging-server
+          ref: develop
+          path: cedar-messaging-server
+
+      - name: Check out cedar-keycloak-event-listener
+        uses: actions/checkout@v7
+        with:
+          repository: metadatacenter/cedar-keycloak-event-listener
+          ref: develop
+          path: cedar-keycloak-event-listener
+
+      - name: Check out cedar-submission-server
+        uses: actions/checkout@v7
+        with:
+          repository: metadatacenter/cedar-submission-server
+          ref: develop
+          path: cedar-submission-server
+
+      - name: Check out cedar-worker-server
+        uses: actions/checkout@v7
+        with:
+          repository: metadatacenter/cedar-worker-server
+          ref: develop
+          path: cedar-worker-server
+
+      - name: Check out cedar-openview-server
+        uses: actions/checkout@v7
+        with:
+          repository: metadatacenter/cedar-openview-server
+          ref: develop
+          path: cedar-openview-server
+
+      - name: Check out cedar-monitor-server
+        uses: actions/checkout@v7
+        with:
+          repository: metadatacenter/cedar-monitor-server
+          ref: develop
+          path: cedar-monitor-server
+
+      - name: Check out cedar-impex-server
+        uses: actions/checkout@v7
+        with:
+          repository: metadatacenter/cedar-impex-server
+          ref: develop
+          path: cedar-impex-server
+
+      - name: Check out cedar-bridge-server
+        uses: actions/checkout@v7
+        with:
+          repository: metadatacenter/cedar-bridge-server
+          ref: develop
+          path: cedar-bridge-server
+
+      - name: Check out cedar-cadsr-tools
+        uses: actions/checkout@v7
+        with:
+          repository: metadatacenter/cedar-cadsr-tools
+          ref: develop
+          path: cedar-cadsr-tools
+
+      # The embedded MongoDB is the 5.0 line the deployment runs, and its only
+      # Linux build links against OpenSSL 1.1, which Ubuntu 24.04 no longer
+      # ships. Without libcrypto.so.1.1 mongod cannot start and the artifact
+      # server's resource tests all error out.
+      - name: Install OpenSSL 1.1 for the embedded MongoDB
+        run: |
+          set -euo pipefail
+          cd "$(mktemp -d)"
+          for url in \
+            http://security.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2.24_amd64.deb \
+            http://archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2_amd64.deb; do
+            if curl -fsSL -o libssl1.1.deb "$url"; then
+              sudo dpkg -i libssl1.1.deb
+              ldconfig -p | grep -q libcrypto.so.1.1
+              exit 0
+            fi
+          done
+          echo "Could not obtain libssl1.1; the embedded MongoDB will not start." >&2
+          exit 1
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "17"
+          cache: maven
+
+      - name: Run Maven verification
+        working-directory: cedar-project
+        run: mvn --batch-mode --no-transfer-progress verify --settings .m2/travis-settings.xml
+
+      - name: Upload test reports
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: surefire-reports
+          path: "**/target/surefire-reports/**"
+          if-no-files-found: warn
