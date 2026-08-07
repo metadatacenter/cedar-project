@@ -1,5 +1,7 @@
 # CEDAR Project
 
+[![CI](https://github.com/metadatacenter/cedar-project/actions/workflows/ci.yml/badge.svg?branch=develop)](https://github.com/metadatacenter/cedar-project/actions/workflows/ci.yml)
+
 This repository contains a Maven POM for building all CEDAR Java-based components. The repository can also be used to report CEDAR issues.
 To access the CEDAR application, visit [the production web site](https://cedar.metadatacenter.org).
 You will be prompted to log in, and can create an account if you do not have one.
