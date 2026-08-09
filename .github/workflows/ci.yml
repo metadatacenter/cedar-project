@@ -338,7 +338,7 @@ jobs:
 
       - name: Run Maven verification
         working-directory: cedar-project
-        run: mvn --batch-mode --no-transfer-progress --update-snapshots verify --settings .m2/travis-settings.xml
+        run: ./mvnw --batch-mode --no-transfer-progress --update-snapshots verify --settings .m2/travis-settings.xml
 
       - name: Upload test reports
         if: always()
