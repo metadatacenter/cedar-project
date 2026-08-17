@@ -49,7 +49,6 @@ jobs:
       CEDAR_ADMIN_USER_PASSWORD: adminPassword
       CEDAR_CADSR_ADMIN_USER_API_KEY: "5678"
       CEDAR_SALT_API_KEY: saltme
-      CEDAR_VALIDATION_ENABLED: "true"
       CEDAR_CADSR_ONTOLOGIES_FOLDER: /tmp/cadsr-ontologies
       CEDAR_TRUSTED_FOLDERS: '{\"caDSR\":[\"https://repo.metadatacenter.orgx/folders/00000000-1111-2222-3333-444444444444\"]}'
       CEDAR_SUBMISSION_TEMPLATE_ID_1: http://template-id-1
