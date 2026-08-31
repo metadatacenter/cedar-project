@@ -9,8 +9,9 @@ You will be prompted to log in, and can create an account if you do not have one
 For general documentation about CEDAR see [our project web site](https://metadatacenter.org/). A complete list of CEDAR references can be found
 at [our references page](https://metadatacenter.org/references).
 
-Developer-focused documentation can be found on the
-[CEDAR technical wiki](https://github.com/metadatacenter/cedar-docs/wiki/CEDAR-technical-documentation).
+Developer-focused documentation is in the
+[CEDAR backend runbook](https://github.com/metadatacenter/cedar-development/blob/develop/ops/BACKEND-RUNBOOK.md),
+which covers the architecture, bringing the stack up, building, and testing.
 
 Before [building CEDAR](https://metadatacenter.readthedocs.io/en/latest/index.html),
 note that Maven must first be executed on the POM in the [CEDAR parent repository](https://github.com/metadatacenter/cedar-parent)
