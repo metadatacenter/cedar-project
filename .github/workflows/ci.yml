@@ -40,6 +40,21 @@ jobs:
           --health-interval=10s
           --health-timeout=5s
           --health-retries=10
+      # cedar-monitor-server's artifact diagnostics read the graph, and this job's environment
+      # already names a Neo4j at 127.0.0.1:7687 without providing one, so those routes answered
+      # 503. Pinned to the version the deployment runs.
+      neo4j:
+        image: neo4j:5.26.0-community
+        env:
+          NEO4J_AUTH: neo4j/password
+        ports:
+          - 7687:7687
+        options: >-
+          --health-cmd="cypher-shell -u neo4j -p password 'RETURN 1'"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=20
+          --health-start-period=30s
     env:
       BMIR_NEXUS_USERNAME: ${{ secrets.BMIR_NEXUS_USERNAME }}
       BMIR_NEXUS_PASSWORD: ${{ secrets.BMIR_NEXUS_PASSWORD }}
