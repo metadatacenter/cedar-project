@@ -58,8 +58,12 @@ jobs:
     env:
       BMIR_NEXUS_USERNAME: ${{ secrets.BMIR_NEXUS_USERNAME }}
       BMIR_NEXUS_PASSWORD: ${{ secrets.BMIR_NEXUS_PASSWORD }}
+      CEDAR_HOME: /tmp/cedar
+      CEDAR_VERSION: test
+      CEDAR_VERSION_MODIFIER: ""
       CEDAR_HOST: metadatacenter.orgx
       CEDAR_NET_GATEWAY: 127.0.0.1
+      CEDAR_CORS_ALLOWED_ORIGINS: "*"
       CEDAR_ADMIN_USER_API_KEY: "1234"
       CEDAR_ADMIN_USER_PASSWORD: adminPassword
       CEDAR_CADSR_ADMIN_USER_API_KEY: "5678"
@@ -91,6 +95,17 @@ jobs:
       CEDAR_LOG_MYSQL_DB: cedar_log
       CEDAR_LOG_MYSQL_USER: cedar_log_user
       CEDAR_LOG_MYSQL_PASSWORD: cedar_log_password
+      CEDAR_LOG_BACKFILL_BATCH: "5000"
+      CEDAR_LOG_BACKFILL_PAUSE_MS: "500"
+      CEDAR_LOG_BACKFILL_WINDOW_UTC: 2-6
+      CEDAR_LOG_LIVE_AGG_BATCH: "2000"
+      CEDAR_LOG_LIVE_AGG_MARGIN_HOURS: "3"
+      CEDAR_LOG_LIVE_AGG_PAUSE_MS: "200"
+      CEDAR_LOG_LIVE_AGG_POLL_MS: "900000"
+      CEDAR_LOG_PRUNE_BATCH: "2000"
+      CEDAR_LOG_PRUNE_IDLE_MS: "3600000"
+      CEDAR_LOG_PRUNE_PAUSE_MS: "500"
+      CEDAR_LOG_PRUNE_RETENTION_DAYS: "30"
       CEDAR_MESSAGING_MYSQL_HOST: 127.0.0.1
       CEDAR_MESSAGING_MYSQL_PORT: "3306"
       CEDAR_MESSAGING_MYSQL_DB: cedar_messaging
@@ -112,6 +127,8 @@ jobs:
       # application POM; these only satisfy configuration substitution.
       CEDAR_BIOPORTAL_REST_BASE: https://data.bioontology.org/
       CEDAR_BIOPORTAL_API_KEY: bioportalApiKey
+      CEDAR_TERMINOLOGY_LOCAL_ONTOLOGIES: DOID
+      CEDAR_TERMINOLOGY_LOCAL_ROOTS_ONTOLOGIES: DOID
       CEDAR_ROR_API_PREFIX: https://api.ror.org/v2/
       CEDAR_ORCID_TOKEN_PREFIX: https://orcid.org/
       CEDAR_ORCID_API_PREFIX: https://pub.orcid.org/
