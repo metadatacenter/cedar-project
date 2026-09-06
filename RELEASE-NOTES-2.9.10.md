@@ -20,7 +20,7 @@ Editor includes every Viewer capability, and Manager includes every Editor capab
 
 Existing users do not lose permissions with this release. Existing Read grants become Viewer grants, while existing Write grants become Manager grants so that users retain every capability they previously had.
 
-Artifact and folder ownership is now shown separately from a role. Owners have all permissions provided by the Manager role. They can also transfer ownership to another user. This distinction makes it clearer whether access comes from ownership, a direct grant, group membership, the **Everyone** group, or an enclosing folder.
+Artifact and folder ownership is now shown separately from a role. Owners have all permissions provided by the Manager role. They can also transfer ownership to another user. This distinction makes the source of a user’s access clearer.
 
 The built-in **Everyone** group can now receive only the Viewer role for new grants, preventing broad edit or management access from being assigned accidentally.
 
