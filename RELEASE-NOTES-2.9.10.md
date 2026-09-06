@@ -38,7 +38,7 @@ Group settings have also been redesigned to make creating, finding, and maintain
 
 ## Preparatory Category Permission Work
 
-CEDAR categories are named labels arranged in a hierarchy and used to classify artifacts—templates, elements, fields, and metadata instances. They let a community organize its artifacts under a shared structure, and let users browse that structure when finding relevant resources. A category can classify multiple artifacts, and an artifact can belong to multiple categories.
+CEDAR categories are named labels arranged in a hierarchy and used to classify artifacts—templates, elements, fields, and metadata instances. They let a community organize its artifacts under a shared structure, and let users browse that structure when finding relevant resources.
 
 CEDAR 2.9.10 adds the backend authorization model needed for future category-management enhancements. Category access is represented by cumulative Viewer, Classifier, Editor, and Manager roles, separating the ability to browse a category, use it to classify artifacts, maintain the category hierarchy, and manage access to it.
 
