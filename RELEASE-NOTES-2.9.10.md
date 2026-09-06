@@ -36,7 +36,9 @@ Group settings have also been redesigned to make creating, finding, and maintain
 
 ## Preparatory Category Permission Work
 
-CEDAR 2.9.10 adds the backend authorization model needed for future category-management features. Category access is represented by cumulative Viewer, Classifier, Editor, and Manager roles, separating the ability to browse a category, classify artifacts, maintain the category, and manage its access.
+CEDAR categories are named labels arranged in a hierarchy and used to classify artifacts—templates, elements, fields, and metadata instances. They let a community organize its artifacts under a shared structure, and let users browse that structure when finding relevant resources. A category can classify multiple artifacts, and an artifact can belong to multiple categories.
+
+CEDAR 2.9.10 adds the backend authorization model needed for future category-management features. Category access is represented by cumulative Viewer, Classifier, Editor, and Manager roles, separating the ability to browse a category, use it to classify artifacts, maintain the category hierarchy, and manage access to it.
 
 This is preparatory infrastructure only. **CEDAR 2.9.10 does not add a category-management or category-sharing interface to the Workspace.** Existing category browsing and filtering remain available as before; user-facing category creation, maintenance, classification, sharing, and ownership workflows are planned for a later release.
 
