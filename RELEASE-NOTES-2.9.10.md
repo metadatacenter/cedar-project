@@ -18,7 +18,7 @@ CEDAR 2.9.10 replaces that two-level model with three cumulative roles for templ
 
 Editor includes every Viewer capability, and Manager includes every Editor capability. See the [CEDAR Permission Model](https://metadatacenter.readthedocs.io/en/latest/user-guide/advanced-topics/permission-model/) for the complete role, ownership, inheritance, and sharing rules.
 
-Existing users do not lose permissions when upgrading. Existing Read grants become Viewer grants, while existing Write grants become Manager grants so that users retain every capability they previously had.
+Existing users do not lose permissions with this release. Existing Read grants become Viewer grants, while existing Write grants become Manager grants so that users retain every capability they previously had.
 
 Ownership is now shown separately from a role. Owners retain full management capabilities and can transfer ownership to another user. This distinction makes it clearer whether access comes from ownership, a direct grant, group membership, the **Everyone** group, or an enclosing folder.
 
