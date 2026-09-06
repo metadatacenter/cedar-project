@@ -22,7 +22,7 @@ Existing users do not lose permissions with this release. Existing Read grants b
 
 Artifact and folder ownership is now shown separately from a role. Owners have all permissions provided by the Manager role. They can also transfer ownership to another user. This distinction makes the source of a user’s access clearer.
 
-The built-in **Everyone** group can now receive only the Viewer role for new grants, preventing broad edit or management access from being assigned accidentally.
+The built-in **Everyone** group can now receive only the Viewer role, preventing broad edit or management access from being assigned accidentally.
 
 ### Redesigned Sharing and Group Management
 
