@@ -8,7 +8,7 @@ This release introduces an enhanced, more granular permission model for CEDAR ar
 
 ### Enhanced, More Granular Roles for Artifacts and Folders
 
-Earlier CEDAR releases offered two sharing permissions: Read and Write. Write combined content editing with higher-risk administrative actions such as changing access, moving resources, and managing OpenView. As a result, people sharing a resource had to grant more control than they intended when a collaborator needed only to edit content.
+Earlier CEDAR releases offered two sharing permissions: Read and Write. Write combined content editing with higher-risk administrative actions such as changing access, moving resources, and managing OpenView. As a result, users sharing a resource had to grant more control than they may have desired to a collaborator who needed only to edit content.
 
 CEDAR 2.9.10 replaces that two-level model with three roles for templates, elements, fields, metadata instances, and folders:
 
