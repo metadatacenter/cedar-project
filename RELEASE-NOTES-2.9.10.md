@@ -10,7 +10,7 @@ This release introduces an enhanced, more granular permission model for CEDAR ar
 
 Earlier CEDAR releases offered two sharing permissions: Read and Write. Write combined content editing with higher-risk administrative actions such as changing access, moving resources, and managing OpenView. As a result, people sharing a resource had to grant more control than they intended when a collaborator needed only to edit content.
 
-CEDAR 2.9.10 replaces that two-level model with three cumulative roles for templates, elements, fields, metadata instances, and folders:
+CEDAR 2.9.10 replaces that two-level model with three roles for templates, elements, fields, metadata instances, and folders:
 
 * **Viewer** provides read access: the user can view an artifact or browse a folder.
 * **Editor** adds content-management capabilities: the user can change content, create or copy resources into a folder, and delete resources, but cannot change who has access.
