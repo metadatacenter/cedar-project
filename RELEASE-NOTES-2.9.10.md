@@ -2,7 +2,7 @@
 
 We’re pleased to announce CEDAR 2.9.10.
 
-This release introduces an enhanced, more granular permission model for CEDAR artifacts and folders, together with redesigned sharing and group-management interfaces. It also lays backend groundwork for future category-management capabilities.
+This release introduces an enhanced, more granular permission model for CEDAR artifacts and folders, together with redesigned permission and group-management interfaces. It also lays backend groundwork for future category-management capabilities.
 
 ## What’s New
 
