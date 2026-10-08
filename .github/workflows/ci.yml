@@ -366,7 +366,18 @@ jobs:
         with:
           distribution: temurin
           java-version: "17"
-          cache: maven
+
+      # setup-java's Maven cache restores only an exact match on the POMs, so a version bump, which
+      # every release makes twice, started the build from an empty repository. Falling back to the
+      # newest earlier cache keeps every third-party artifact the bump did not change.
+      - name: Restore the Maven repository
+        uses: actions/cache@v5
+        with:
+          path: |
+            ~/.m2/repository
+            ~/.m2/wrapper
+          key: maven-${{ runner.os }}-${{ hashFiles('**/pom.xml') }}
+          restore-keys: maven-${{ runner.os }}-
 
       - name: Run Maven verification
         working-directory: cedar-project
