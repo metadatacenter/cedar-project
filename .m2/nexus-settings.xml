@@ -7,14 +7,30 @@
     <profile>
       <id>bmir</id>
 
+      <!--
+        Central comes first. After the Nexus repositories, it was asked for a third-party artifact
+        only once both had answered 404, and a build starting from an empty repository spent
+        thousands of those misses against Nexus's daily request limit. Each Nexus repository is
+        asked only for the kind of version it holds.
+      -->
       <repositories>
+        <repository>
+          <id>central</id>
+          <url>https://repo.maven.apache.org/maven2</url>
+          <releases><enabled>true</enabled></releases>
+          <snapshots><enabled>false</enabled></snapshots>
+        </repository>
         <repository>
           <id>bmir-nexus-snapshots</id>
           <url>https://nexus.bmir.stanford.edu/repository/snapshots</url>
+          <releases><enabled>false</enabled></releases>
+          <snapshots><enabled>true</enabled></snapshots>
         </repository>
         <repository>
           <id>bmir-nexus-releases</id>
           <url>https://nexus.bmir.stanford.edu/repository/releases</url>
+          <releases><enabled>true</enabled></releases>
+          <snapshots><enabled>false</enabled></snapshots>
         </repository>
       </repositories>
 
