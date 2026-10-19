@@ -358,3 +358,13 @@ jobs:
           name: surefire-reports
           path: "**/target/surefire-reports/**"
           if-no-files-found: warn
+
+      # cedar-parent attaches JaCoCo to every test run, and each module that ran tests writes a
+      # report: target/site/jacoco for Surefire suites and target/site/jacoco-it for Failsafe ones.
+      - name: Upload coverage reports
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: coverage-reports
+          path: "**/target/site/jacoco*/**"
+          if-no-files-found: warn
