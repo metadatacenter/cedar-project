@@ -27,15 +27,12 @@
     <module>../cedar-admin-tool</module>
     <module>../cedar-artifact-server</module>
     <module>../cedar-repo-server</module>
-    <module>../cedar-schema-server</module>
     <module>../cedar-terminology-server</module>
     <module>../cedar-user-server</module>
     <module>../cedar-resource-server</module>
-    <module>../cedar-valuerecommender-server</module>
     <module>../cedar-group-server</module>
     <module>../cedar-messaging-server</module>
     <module>../cedar-keycloak-event-listener</module>
-    <module>../cedar-submission-server</module>
     <module>../cedar-worker-server</module>
     <module>../cedar-openview-server</module>
     <module>../cedar-monitor-server</module>
