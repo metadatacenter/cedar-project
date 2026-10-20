@@ -383,6 +383,55 @@ jobs:
           path: "**/target/site/jacoco*/**"
           if-no-files-found: warn
 
+      # Each module's report credits its classes only with its own tests, and this job runs every
+      # server's suites against the develop libraries in one reactor, so it can say what any test
+      # reached. The Neo4j proxy, for one, reads 19% by its own suites and 74% by all of them. The
+      # report is cedarcli's own, from cedar-cli, with the JaCoCo version cedar-parent pins. These
+      # steps report and never fail the job, so a coverage problem cannot open the nightly issue.
+      - name: Check out cedar-cli for the coverage report
+        if: always()
+        continue-on-error: true
+        uses: actions/checkout@v7
+        with:
+          repository: metadatacenter/cedar-cli
+          ref: develop
+          path: cedar-cli
+
+      - name: Check out cedar-parent for the coverage report
+        if: always()
+        continue-on-error: true
+        uses: actions/checkout@v7
+        with:
+          repository: metadatacenter/cedar-parent
+          ref: develop
+          path: cedar-parent
+
+      - name: Set up Python for the coverage report
+        if: always()
+        continue-on-error: true
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Report coverage credited by any test
+        if: always()
+        continue-on-error: true
+        working-directory: cedar-cli
+        run: |
+          python -m pip install --quiet -r requirements.txt
+          python -m org.metadatacenter.coverage "$GITHUB_WORKSPACE" --java "$JAVA_HOME/bin/java" \
+            | tee -a "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload the coverage summary
+        if: always()
+        continue-on-error: true
+        uses: actions/upload-artifact@v7
+        with:
+          name: coverage-summary
+          path: .cedar/coverage/*.json
+          include-hidden-files: true
+          if-no-files-found: warn
+
       # A scheduled run that merely goes red notifies whoever last edited the schedule and nobody
       # else, so its result goes to an issue, as the snapshot-freshness check in cedar-development
       # does.
