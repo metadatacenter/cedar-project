@@ -8,9 +8,22 @@ on:
     branches:
       - develop
   workflow_dispatch:
+  # A shared library's own CI runs only that library's suites and then publishes its snapshot, and
+  # those suites reach a fraction of what the servers depend on: 19% of the Neo4j proxy on
+  # 2026-10-19, against 74% once the server suites ran. This reactor builds the microservice
+  # libraries with every server, so a nightly run catches a library change that breaks a server
+  # within a day rather than at that server's next push. GitHub runs a schedule from the default
+  # branch, main, so the schedule takes effect once a release carries this file there, and the
+  # checkout below asks for develop explicitly.
+  schedule:
+    - cron: "37 8 * * *"
 
 permissions:
   contents: read
+  issues: write
+
+env:
+  NIGHTLY_ISSUE_TITLE: "The nightly cedar-project build fails against develop"
 
 concurrency:
   group: ci-${{ github.workflow }}-${{ github.ref }}
@@ -39,8 +52,6 @@ jobs:
       CEDAR_SALT_API_KEY: saltme
       CEDAR_CADSR_ONTOLOGIES_FOLDER: /tmp/cadsr-ontologies
       CEDAR_TRUSTED_FOLDERS: '{\"caDSR\":[\"https://repo.metadatacenter.orgx/folders/00000000-1111-2222-3333-444444444444\"]}'
-      CEDAR_SUBMISSION_TEMPLATE_ID_1: http://template-id-1
-      CEDAR_SUBMISSION_TEMPLATE_ID_2: http://template-id-2
       # These must sit under linkedData.usersBase from cedar-main.yml
       # (https://metadatacenter.org/users/), or the profile-ownership check
       # rejects the test user's own profile with a 403.
@@ -80,12 +91,6 @@ jobs:
       CEDAR_MESSAGING_MYSQL_DB: cedar_messaging
       CEDAR_MESSAGING_MYSQL_USER: cedarMySQLMessagingUser
       CEDAR_MESSAGING_MYSQL_PASSWORD: password
-      CEDAR_NCBI_SRA_FTP_HOST: ftpHost
-      CEDAR_NCBI_SRA_FTP_USER: ftpUser
-      CEDAR_NCBI_SRA_FTP_PASSWORD: ftpPassword
-      CEDAR_NCBI_SRA_FTP_DIRECTORY: ftpDirectory
-      CEDAR_IMMPORT_SUBMISSION_USER: submissionUser
-      CEDAR_IMMPORT_SUBMISSION_PASSWORD: submissionPassword
       CEDAR_DATACITE_ENABLED: "false"
       CEDAR_DATACITE_REPOSITORY_ID: dataCiteRepositoryId
       CEDAR_DATACITE_REPOSITORY_PASSWORD: dataCiteRepositoryPassword
@@ -115,10 +120,6 @@ jobs:
       CEDAR_REPO_HTTP_PORT: "9002"
       CEDAR_REPO_ADMIN_PORT: "9102"
       CEDAR_REPO_STOP_PORT: "9202"
-      CEDAR_SCHEMA_SERVER_HOST: 127.0.0.1
-      CEDAR_SCHEMA_HTTP_PORT: "9003"
-      CEDAR_SCHEMA_ADMIN_PORT: "9103"
-      CEDAR_SCHEMA_STOP_PORT: "9203"
       CEDAR_TERMINOLOGY_SERVER_HOST: 127.0.0.1
       CEDAR_TERMINOLOGY_HTTP_PORT: "9004"
       CEDAR_TERMINOLOGY_ADMIN_PORT: "9104"
@@ -127,10 +128,6 @@ jobs:
       CEDAR_USER_HTTP_PORT: "9005"
       CEDAR_USER_ADMIN_PORT: "9105"
       CEDAR_USER_STOP_PORT: "9205"
-      CEDAR_VALUERECOMMENDER_SERVER_HOST: 127.0.0.1
-      CEDAR_VALUERECOMMENDER_HTTP_PORT: "9006"
-      CEDAR_VALUERECOMMENDER_ADMIN_PORT: "9106"
-      CEDAR_VALUERECOMMENDER_STOP_PORT: "9206"
       CEDAR_RESOURCE_SERVER_HOST: 127.0.0.1
       CEDAR_RESOURCE_HTTP_PORT: "9007"
       CEDAR_RESOURCE_ADMIN_PORT: "9107"
@@ -143,10 +140,6 @@ jobs:
       CEDAR_GROUP_HTTP_PORT: "9009"
       CEDAR_GROUP_ADMIN_PORT: "9109"
       CEDAR_GROUP_STOP_PORT: "9209"
-      CEDAR_SUBMISSION_SERVER_HOST: 127.0.0.1
-      CEDAR_SUBMISSION_HTTP_PORT: "9010"
-      CEDAR_SUBMISSION_ADMIN_PORT: "9110"
-      CEDAR_SUBMISSION_STOP_PORT: "9210"
       CEDAR_WORKER_SERVER_HOST: 127.0.0.1
       CEDAR_WORKER_HTTP_PORT: "9011"
       CEDAR_WORKER_ADMIN_PORT: "9111"
@@ -175,6 +168,7 @@ jobs:
         uses: actions/checkout@v7
         with:
           path: cedar-project
+          ref: ${{ github.event_name == 'schedule' && 'develop' || '' }}
 
       - name: Check out cedar-microservice-libraries
         uses: actions/checkout@v7
@@ -358,3 +352,93 @@ jobs:
           name: surefire-reports
           path: "**/target/surefire-reports/**"
           if-no-files-found: warn
+
+      # cedar-parent attaches JaCoCo to every test run, and each module that ran tests writes a
+      # report: target/site/jacoco for Surefire suites and target/site/jacoco-it for Failsafe ones.
+      - name: Upload coverage reports
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: coverage-reports
+          path: "**/target/site/jacoco*/**"
+          if-no-files-found: warn
+
+      # Each module's report credits its classes only with its own tests, and this job runs every
+      # server's suites against the develop libraries in one reactor, so it can say what any test
+      # reached. The Neo4j proxy, for one, reads 19% by its own suites and 74% by all of them. The
+      # report is cedarcli's own, from cedar-cli, with the JaCoCo version cedar-parent pins. These
+      # steps report and never fail the job, so a coverage problem cannot open the nightly issue.
+      - name: Check out cedar-cli for the coverage report
+        if: always()
+        continue-on-error: true
+        uses: actions/checkout@v7
+        with:
+          repository: metadatacenter/cedar-cli
+          ref: develop
+          path: cedar-cli
+
+      - name: Check out cedar-parent for the coverage report
+        if: always()
+        continue-on-error: true
+        uses: actions/checkout@v7
+        with:
+          repository: metadatacenter/cedar-parent
+          ref: develop
+          path: cedar-parent
+
+      - name: Set up Python for the coverage report
+        if: always()
+        continue-on-error: true
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Report coverage credited by any test
+        if: always()
+        continue-on-error: true
+        working-directory: cedar-cli
+        run: |
+          python -m pip install --quiet -r requirements.txt
+          python -m org.metadatacenter.coverage "$GITHUB_WORKSPACE" --java "$JAVA_HOME/bin/java" \
+            | tee -a "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload the coverage summary
+        if: always()
+        continue-on-error: true
+        uses: actions/upload-artifact@v7
+        with:
+          name: coverage-summary
+          path: .cedar/coverage/*.json
+          include-hidden-files: true
+          if-no-files-found: warn
+
+      # A scheduled run that merely goes red notifies whoever last edited the schedule and nobody
+      # else, so its result goes to an issue, as the snapshot-freshness check in cedar-development
+      # does.
+      - name: Open or update the issue when the nightly build fails
+        if: failure() && github.event_name == 'schedule'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          body="The nightly build of every server against the develop heads failed. A library change that passed its own CI can break a server and show up only here. Run: $RUN_URL"
+          existing=$(gh issue list --repo "$GITHUB_REPOSITORY" --state open \
+            --search "in:title \"$NIGHTLY_ISSUE_TITLE\"" --json number --jq '.[0].number // empty')
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --repo "$GITHUB_REPOSITORY" --body "$body"
+          else
+            gh issue create --repo "$GITHUB_REPOSITORY" --title "$NIGHTLY_ISSUE_TITLE" --body "$body"
+          fi
+
+      - name: Close the issue once the nightly build passes
+        if: success() && github.event_name == 'schedule'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          existing=$(gh issue list --repo "$GITHUB_REPOSITORY" --state open \
+            --search "in:title \"$NIGHTLY_ISSUE_TITLE\"" --json number --jq '.[0].number // empty')
+          if [ -n "$existing" ]; then
+            gh issue close "$existing" --repo "$GITHUB_REPOSITORY" \
+              --comment "The nightly build passed against the develop heads. Run: $RUN_URL"
+          fi
