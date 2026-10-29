@@ -1,0 +1,7 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Takes the shared CEDAR backend policy. Every third-party version this repository builds with is managed in cedar-parent, so what Renovate finds here is the workflow actions, the Maven wrapper, and any version a POM in this repository declares itself.",
+  "extends": [
+    "local>metadatacenter/cedar-parent:renovate-backend"
+  ]
+}
