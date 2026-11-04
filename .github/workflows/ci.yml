@@ -48,6 +48,7 @@ jobs:
       CEDAR_ADMIN_USER_API_KEY: "1234"
       CEDAR_ARTIFACT_SERVICE_API_KEY: "test-only-artifact-service-key-not-for-prod"
       CEDAR_ADMIN_USER_PASSWORD: adminPassword
+      CEDAR_CADSR_ADMIN_USER_API_KEY: "5678"
       CEDAR_SALT_API_KEY: saltme
       CEDAR_CADSR_ONTOLOGIES_FOLDER: /tmp/cadsr-ontologies
       CEDAR_TRUSTED_FOLDERS: '{\"caDSR\":[\"https://repo.metadatacenter.orgx/folders/00000000-1111-2222-3333-444444444444\"]}'
