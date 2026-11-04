@@ -48,7 +48,6 @@ jobs:
       CEDAR_ADMIN_USER_API_KEY: "1234"
       CEDAR_ARTIFACT_SERVICE_API_KEY: "test-only-artifact-service-key-not-for-prod"
       CEDAR_ADMIN_USER_PASSWORD: adminPassword
-      CEDAR_CADSR_ADMIN_USER_API_KEY: "5678"
       CEDAR_SALT_API_KEY: saltme
       CEDAR_CADSR_ONTOLOGIES_FOLDER: /tmp/cadsr-ontologies
       CEDAR_TRUSTED_FOLDERS: '{\"caDSR\":[\"https://repo.metadatacenter.orgx/folders/00000000-1111-2222-3333-444444444444\"]}'
@@ -132,10 +131,6 @@ jobs:
       CEDAR_RESOURCE_HTTP_PORT: "9007"
       CEDAR_RESOURCE_ADMIN_PORT: "9107"
       CEDAR_RESOURCE_STOP_PORT: "9207"
-      CEDAR_IMPEX_SERVER_HOST: 127.0.0.1
-      CEDAR_IMPEX_HTTP_PORT: "9008"
-      CEDAR_IMPEX_ADMIN_PORT: "9108"
-      CEDAR_IMPEX_STOP_PORT: "9208"
       CEDAR_GROUP_SERVER_HOST: 127.0.0.1
       CEDAR_GROUP_HTTP_PORT: "9009"
       CEDAR_GROUP_ADMIN_PORT: "9109"
@@ -281,13 +276,6 @@ jobs:
           repository: metadatacenter/cedar-monitor-server
           ref: develop
           path: cedar-monitor-server
-
-      - name: Check out cedar-impex-server
-        uses: actions/checkout@v7
-        with:
-          repository: metadatacenter/cedar-impex-server
-          ref: develop
-          path: cedar-impex-server
 
       - name: Check out cedar-bridge-server
         uses: actions/checkout@v7
