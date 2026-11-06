@@ -132,10 +132,6 @@ jobs:
       CEDAR_RESOURCE_HTTP_PORT: "9007"
       CEDAR_RESOURCE_ADMIN_PORT: "9107"
       CEDAR_RESOURCE_STOP_PORT: "9207"
-      CEDAR_IMPEX_SERVER_HOST: 127.0.0.1
-      CEDAR_IMPEX_HTTP_PORT: "9008"
-      CEDAR_IMPEX_ADMIN_PORT: "9108"
-      CEDAR_IMPEX_STOP_PORT: "9208"
       CEDAR_GROUP_SERVER_HOST: 127.0.0.1
       CEDAR_GROUP_HTTP_PORT: "9009"
       CEDAR_GROUP_ADMIN_PORT: "9109"
@@ -281,13 +277,6 @@ jobs:
           repository: metadatacenter/cedar-monitor-server
           ref: develop
           path: cedar-monitor-server
-
-      - name: Check out cedar-impex-server
-        uses: actions/checkout@v7
-        with:
-          repository: metadatacenter/cedar-impex-server
-          ref: develop
-          path: cedar-impex-server
 
       - name: Check out cedar-bridge-server
         uses: actions/checkout@v7
