@@ -194,13 +194,6 @@ jobs:
           ref: develop
           path: cedar-repo-server
 
-      - name: Check out cedar-schema-server
-        uses: actions/checkout@v7
-        with:
-          repository: metadatacenter/cedar-schema-server
-          ref: develop
-          path: cedar-schema-server
-
       - name: Check out cedar-terminology-server
         uses: actions/checkout@v7
         with:
@@ -222,13 +215,6 @@ jobs:
           ref: develop
           path: cedar-resource-server
 
-      - name: Check out cedar-valuerecommender-server
-        uses: actions/checkout@v7
-        with:
-          repository: metadatacenter/cedar-valuerecommender-server
-          ref: develop
-          path: cedar-valuerecommender-server
-
       - name: Check out cedar-group-server
         uses: actions/checkout@v7
         with:
@@ -249,13 +235,6 @@ jobs:
           repository: metadatacenter/cedar-keycloak-event-listener
           ref: develop
           path: cedar-keycloak-event-listener
-
-      - name: Check out cedar-submission-server
-        uses: actions/checkout@v7
-        with:
-          repository: metadatacenter/cedar-submission-server
-          ref: develop
-          path: cedar-submission-server
 
       - name: Check out cedar-worker-server
         uses: actions/checkout@v7
