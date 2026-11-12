@@ -97,8 +97,8 @@ jobs:
       CEDAR_DATACITE_REPOSITORY_PREFIX: "10.5072"
       CEDAR_DATACITE_API_ENDPOINT_URL: https://api.test.datacite.org/dois
       CEDAR_DATACITE_TEMPLATE_ID: http://datacite-template-id
-      # The tests that call BioPortal live are @Tag("bioportal") and excluded by the
-      # application POM; these only satisfy configuration substitution.
+      # No test calls BioPortal. The terminology suites run against a fake one, so these values
+      # only satisfy configuration substitution.
       CEDAR_BIOPORTAL_REST_BASE: https://data.bioontology.org/
       CEDAR_BIOPORTAL_API_KEY: bioportalApiKey
       CEDAR_TERMINOLOGY_LOCAL_ONTOLOGIES: DOID
