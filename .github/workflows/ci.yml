@@ -271,22 +271,35 @@ jobs:
           ref: develop
           path: cedar-cadsr-tools
 
-      # The embedded MongoDB is the 5.0 line the deployment runs, and its only
-      # Linux build links against OpenSSL 1.1, which Ubuntu 24.04 no longer
-      # ships. Without libcrypto.so.1.1 mongod cannot start and the artifact
-      # server's resource tests all error out.
+      # The embedded MongoDB is the 5.0 line the deployment runs, and its only Linux
+      # build links against OpenSSL 1.1, which Ubuntu 24.04 no longer ships. Without
+      # libcrypto.so.1.1 mongod cannot start and the artifact server's resource tests all error out.
+      # Fetched over HTTPS and checked against a pinned digest before dpkg sees it: this step
+      # installs a system library into the job, and the filenames are version-pinned, so their
+      # content is immutable and a mismatch means the archive is not serving what we expect.
+      # Changing either URL means recomputing its digest with `sha256sum`. Each download is retried,
+      # because a transient DNS failure at either archive otherwise ends the run before Maven starts.
       - name: Install OpenSSL 1.1 for the embedded MongoDB
         run: |
           set -euo pipefail
           cd "$(mktemp -d)"
-          for url in \
-            http://security.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2.24_amd64.deb \
-            http://archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2_amd64.deb; do
-            if curl -fsSL -o libssl1.1.deb "$url"; then
-              sudo dpkg -i libssl1.1.deb
-              ldconfig -p | grep -q libcrypto.so.1.1
-              exit 0
+          for entry in \
+            "7cf39d70a639017d1dd7c8d36daa2258063608688e449fddf40ffdd46f992a78 https://security.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2.24_amd64.deb" \
+            "09ee28588a1fb5613ddc6c26a992d5a76931b3cf22c022930da413a5e580599e https://archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2_amd64.deb"; do
+            expected="${entry%% *}"
+            url="${entry#* }"
+            if ! curl -fsSL --retry 5 --retry-all-errors --retry-delay 5 -o libssl1.1.deb "$url"; then
+              echo "Could not download $url; trying the next mirror." >&2
+              continue
             fi
+            actual="$(sha256sum libssl1.1.deb | cut -d' ' -f1)"
+            if [ "$actual" != "$expected" ]; then
+              echo "Digest mismatch for $url: expected $expected, got $actual. Refusing to install." >&2
+              exit 1
+            fi
+            sudo dpkg -i libssl1.1.deb
+            ldconfig -p | grep -q libcrypto.so.1.1
+            exit 0
           done
           echo "Could not obtain libssl1.1; the embedded MongoDB will not start." >&2
           exit 1
