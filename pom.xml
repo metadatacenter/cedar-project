@@ -40,4 +40,17 @@
     <module>../cedar-cadsr-tools</module>
   </modules>
 
+  <profiles>
+    <!-- `cedarcli build java` builds the libraries and the servers in one reactor through this
+         profile, so a server's library chain starts as soon as the libraries it needs are
+         installed rather than after every library's tests. The nightly CI resolves the libraries
+         from Nexus and leaves it off. -->
+    <profile>
+      <id>libraries</id>
+      <modules>
+        <module>../cedar-libraries</module>
+      </modules>
+    </profile>
+  </profiles>
+
 </project>
